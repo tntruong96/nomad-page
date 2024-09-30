@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC } from 'react';
 import { ListSideBar } from './config';
+import SwitchModeComponent from '../SwitchMode';
 
 interface ISideBar {
   open: boolean;
@@ -20,10 +21,15 @@ const SideBar: FC<ISideBar> = ({ open, mode = 'light' }) => {
     <List
       sx={{
         width: '100%',
+        height: 'inherit',
         display: { xs: 'flex', sm: 'block' },
+        position: 'relative',
       }}
     >
-      <ListItem>logo</ListItem>
+      <ListItem className="flex justify-between">
+        <Box>logo</Box>
+        <SwitchModeComponent className="hidden md:flex" />
+      </ListItem>
       {ListSideBar.map((item) => (
         <ListItem
           key={item.title}
@@ -40,10 +46,11 @@ const SideBar: FC<ISideBar> = ({ open, mode = 'light' }) => {
                   sm: 'center',
                   md: 'flex-start',
                 },
+                borderColor: 'grey.700',
               }}
               className={`flex w-full items-center gap-4 p-2 ${
                 pathname.includes(item.href)
-                  ? 'rounded-lg border border-solid border-black'
+                  ? `rounded-lg border border-solid`
                   : ''
               } `}
             >
@@ -63,6 +70,9 @@ const SideBar: FC<ISideBar> = ({ open, mode = 'light' }) => {
           </Link>
         </ListItem>
       ))}
+      <ListItem className="absolute bottom-0 hidden justify-center px-2 sm:flex md:hidden">
+        <SwitchModeComponent />
+      </ListItem>
     </List>
   );
 

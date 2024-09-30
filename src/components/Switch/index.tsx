@@ -1,8 +1,11 @@
-import { styled, Switch } from '@mui/material';
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-empty-object-type */
+import { styled, Switch, SwitchProps } from '@mui/material';
+import React, { FC } from 'react';
 
-const SwitchComponent = () => {
-  return <CustomSwitch />;
+interface Props extends SwitchProps {}
+
+const SwitchComponent: FC<Props> = (props) => {
+  return <CustomSwitch {...props} />;
 };
 
 export default SwitchComponent;

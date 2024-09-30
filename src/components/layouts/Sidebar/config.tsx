@@ -5,8 +5,8 @@ import {
   CollectionsOutlined,
   AssignmentInd,
   AssignmentIndOutlined,
-} from "@mui/icons-material";
-import { SvgIconComponent } from "@mui/icons-material";
+} from '@mui/icons-material';
+import { SvgIconComponent } from '@mui/icons-material';
 
 export const ListSideBar: {
   id: number;
@@ -17,23 +17,23 @@ export const ListSideBar: {
 }[] = [
   {
     id: 1,
-    title: "Blog",
+    title: 'Blog',
     iconOutlined: BorderColorOutlined,
     iconFilled: BorderColor,
-    href: "/blog",
+    href: '/blog',
   },
   {
     id: 2,
-    title: "Gallery",
+    title: 'Gallery',
     iconOutlined: CollectionsOutlined,
     iconFilled: Collections,
-    href: "/gallery",
+    href: '/gallery',
   },
   {
     id: 3,
-    title: "My Resume",
+    title: 'My Resume',
     iconOutlined: AssignmentIndOutlined,
     iconFilled: AssignmentInd,
-    href: "/resume",
+    href: '/resume',
   },
 ];
