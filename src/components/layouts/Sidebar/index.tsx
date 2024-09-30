@@ -1,81 +1,109 @@
-"use client";
+'use client';
 
-import {
-  Box,
-  Drawer,
-  List,
-  ListItem,
-  SvgIcon,
-  useMediaQuery,
-} from "@mui/material";
-import Link from "next/link";
-import { FC, useEffect, useState } from "react";
-import { ListSideBar } from "./config";
-import { device } from "@/assests/width-responsive";
-import { usePathname } from "next/navigation";
+import { Box, Drawer, List, ListItem, SvgIcon } from '@mui/material';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { FC } from 'react';
+import { ListSideBar } from './config';
 
 interface ISideBar {
   open: boolean;
-  mode?: "dark" | "light";
-  drawerWidth: string;
+  mode?: 'dark' | 'light';
 }
 
-const SideBar: FC<ISideBar> = ({ open, mode = "light", drawerWidth }) => {
+const SideBar: FC<ISideBar> = ({ open, mode = 'light' }) => {
   const pathname = usePathname();
-  const matches = useMediaQuery(`${device.tablet}`);
 
   /* STATE */
-  const [width, setWidth] = useState(drawerWidth);
 
-  useEffect(() => {
-    if (matches) {
-      setWidth(drawerWidth);
-    } else {
-      setWidth("50px");
-    }
-  }, [matches, drawerWidth]);
+  const renderListItem = () => (
+    <List
+      sx={{
+        width: '100%',
+        display: { xs: 'flex', sm: 'block' },
+      }}
+    >
+      <ListItem>logo</ListItem>
+      {ListSideBar.map((item) => (
+        <ListItem
+          key={item.title}
+          sx={{
+            px: { sm: '4px', md: '12px' },
+          }}
+        >
+          <Link href={item.href} className="w-full">
+            <Box
+              component={'div'}
+              sx={{
+                justifyContent: {
+                  xs: 'center',
+                  sm: 'center',
+                  md: 'flex-start',
+                },
+              }}
+              className={`flex w-full items-center gap-4 p-2 ${
+                pathname.includes(item.href)
+                  ? 'rounded-lg border border-solid border-black'
+                  : ''
+              } `}
+            >
+              <SvgIcon
+                component={
+                  mode === 'dark' ? item.iconFilled : item.iconOutlined
+                }
+              />
+              <Box
+                sx={{
+                  display: { xs: 'none', sm: 'none', md: 'block' },
+                }}
+              >
+                <p className="font-bold">{item.title}</p>
+              </Box>
+            </Box>
+          </Link>
+        </ListItem>
+      ))}
+    </List>
+  );
 
   return (
-    <Box component={"nav"} width={drawerWidth}>
+    <Box
+      component={'nav'}
+      sx={{
+        width: { xs: '20%', sm: '50px', md: '200px' },
+        position: { xs: 'absolute', sm: 'relative' },
+        bottom: { xs: 0 },
+      }}
+      className="flex-initial"
+    >
       <Drawer
         variant="permanent"
         anchor="left"
         open={open}
         sx={{
-          "& .MuiDrawer-paper": {
-            boxSizing: "border-box",
-            width: width,
+          display: { xs: 'none', sm: 'block' },
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            width: { sm: '50px', md: '200px' },
+          },
+        }}
+        className="flex-initial"
+      >
+        {renderListItem()}
+      </Drawer>
+      <Drawer
+        variant="permanent"
+        anchor="bottom"
+        open={open}
+        sx={{
+          display: { xs: 'block', sm: 'none' },
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            width: '100%',
           },
         }}
       >
-        <List>
-          {ListSideBar.map((item) => (
-            <ListItem key={item.title} className={`${!matches ? "px-1" : ""}`}>
-              <Link href={item.href} className="w-full">
-                <Box
-                  component={"div"}
-                  className={`w-full flex items-center gap-4 p-2 ${
-                    !matches && "justify-center"
-                  }
-                  ${
-                    pathname.includes(item.href)
-                      ? "border border-solid border-black rounded-lg p-2"
-                      : ""
-                  }
-                  
-                  `}
-                >
-                  <SvgIcon
-                    component={
-                      mode === "dark" ? item.iconFilled : item.iconOutlined
-                    }
-                  />
-                  {matches ? <p className="font-bold">{item.title}</p> : null}
-                </Box>
-              </Link>
-            </ListItem>
-          ))}
-        </List>
+        {renderListItem()}
       </Drawer>
     </Box>
   );

@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 const Footer = () => {
   return (
-    <div className="w-full flex justify-center bottom-0">
+    <div className="bottom-0 flex w-full justify-center">
       <p>© 2024 by Nomad Truong&apos;s website. All rights reserved.</p>
     </div>
   );
