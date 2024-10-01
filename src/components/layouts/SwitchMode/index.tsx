@@ -1,8 +1,13 @@
+'use client';
 import SwitchComponent from '@/components/Switch';
-import { ThemeContext } from '@/contexts/ThemeContext';
+import LoadingContextProvider, {
+  LoadingContext,
+} from '@/contexts/LoadingContext';
+import { useLayoutStore } from '@/hooks/useLayout';
+
 import { DarkMode, LightMode } from '@mui/icons-material';
 import { styled, SxProps, Theme } from '@mui/material';
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 
 interface IProps {
   sx?: SxProps<Theme>;
@@ -10,7 +15,7 @@ interface IProps {
 }
 
 const SwitchModeComponent: FC<IProps> = ({ sx, className }) => {
-  const { mode, setMode } = useContext(ThemeContext);
+  const { mode, switchMode, _hasHydrated } = useLayoutStore((state) => state);
 
   return (
     <CustomSwitchComponent
@@ -18,7 +23,9 @@ const SwitchModeComponent: FC<IProps> = ({ sx, className }) => {
       className={className}
       value={mode}
       checked={mode}
-      onChange={() => setMode && setMode((prev) => !prev)}
+      onChange={() => {
+        switchMode && switchMode();
+      }}
       icon={<LightMode sx={{ width: '0.9rem', height: '0.9rem' }} />}
       checkedIcon={
         <DarkMode

@@ -1,35 +1,24 @@
 'use client';
 
 import { cormorant_upright } from '@/app/fonts/fonts';
+import { useLayoutStore } from '@/hooks/useLayout';
+
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 import { createTheme, Theme } from '@mui/material';
-import {
-  createContext,
-  Dispatch,
-  PropsWithChildren,
-  SetStateAction,
-  useState,
-} from 'react';
+import { createContext, PropsWithChildren } from 'react';
 
 export interface IProps extends PropsWithChildren {}
 
 interface IValueContext {
   mode?: boolean;
-  setMode?: Dispatch<SetStateAction<boolean>>;
+  switchMode?: () => void;
   theme?: Theme;
 }
 
 export const ThemeContext = createContext<IValueContext>({});
 
 export default function ThemeContextProvider(props: IProps) {
-  // const preferMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-  const [mode, setMode] = useState(false);
-
-  // useEffect(() => {
-  //   setMode(preferMode);
-  // }, [preferMode]);
-
+  const { mode, switchMode } = useLayoutStore((state) => state);
   const theme = createTheme({
     typography: {
       fontFamily: `var(${cormorant_upright.variable})`,
@@ -40,7 +29,7 @@ export default function ThemeContextProvider(props: IProps) {
   });
 
   return (
-    <ThemeContext.Provider value={{ mode, setMode, theme }}>
+    <ThemeContext.Provider value={{ theme }}>
       {props.children}
     </ThemeContext.Provider>
   );

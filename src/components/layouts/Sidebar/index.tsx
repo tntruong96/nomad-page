@@ -4,16 +4,20 @@ import { Box, Drawer, List, ListItem, SvgIcon } from '@mui/material';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC } from 'react';
-import { ListSideBar } from './config';
 import SwitchModeComponent from '../SwitchMode';
+import { ListSideBar } from './config';
+import { useLayoutStore } from '@/hooks/useLayout';
 
 interface ISideBar {
   open: boolean;
-  mode?: 'dark' | 'light';
+  // mode?: 'dark' | 'light';
 }
 
-const SideBar: FC<ISideBar> = ({ open, mode = 'light' }) => {
+const SideBar: FC<ISideBar> = ({ open }) => {
   const pathname = usePathname();
+  const { mode, switchMode, _hasHydrated } = useLayoutStore((state) => state);
+
+  console.log(_hasHydrated);
 
   /* STATE */
 
@@ -26,9 +30,13 @@ const SideBar: FC<ISideBar> = ({ open, mode = 'light' }) => {
         position: 'relative',
       }}
     >
-      <ListItem className="flex justify-between">
+      <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box>logo</Box>
-        <SwitchModeComponent className="hidden md:flex" />
+        <SwitchModeComponent
+          sx={{
+            display: { xs: 'none', md: 'flex' },
+          }}
+        />
       </ListItem>
       {ListSideBar.map((item) => (
         <ListItem
@@ -54,11 +62,7 @@ const SideBar: FC<ISideBar> = ({ open, mode = 'light' }) => {
                   : ''
               } `}
             >
-              <SvgIcon
-                component={
-                  mode === 'dark' ? item.iconFilled : item.iconOutlined
-                }
-              />
+              <SvgIcon component={item.iconOutlined} />
               <Box
                 sx={{
                   display: { xs: 'none', sm: 'none', md: 'block' },
@@ -70,11 +74,22 @@ const SideBar: FC<ISideBar> = ({ open, mode = 'light' }) => {
           </Link>
         </ListItem>
       ))}
-      <ListItem className="absolute bottom-0 hidden justify-center px-2 sm:flex md:hidden">
+      <ListItem
+        className="absolute bottom-0 hidden justify-center px-2 sm:flex md:hidden"
+        sx={{
+          position: 'absolute',
+          bottom: 0,
+          display: { xs: 'none', sm: 'flex', md: 'none' },
+          justifyContent: 'center',
+          px: 2,
+        }}
+      >
         <SwitchModeComponent />
       </ListItem>
     </List>
   );
+
+  if (!_hasHydrated) return <div>loading</div>;
 
   return (
     <Box
