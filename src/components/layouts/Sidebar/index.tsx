@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import { FC } from 'react';
 import SwitchModeComponent from '../SwitchMode';
 import { ListSideBar } from './config';
-import { useLayoutStore } from '@/hooks/useLayout';
 
 interface ISideBar {
   open: boolean;
@@ -15,9 +14,8 @@ interface ISideBar {
 
 const SideBar: FC<ISideBar> = ({ open }) => {
   const pathname = usePathname();
-  const { mode, switchMode, _hasHydrated } = useLayoutStore((state) => state);
 
-  console.log(_hasHydrated);
+  // console.log(_hasHydrated);
 
   /* STATE */
 
@@ -89,7 +87,7 @@ const SideBar: FC<ISideBar> = ({ open }) => {
     </List>
   );
 
-  if (!_hasHydrated) return <div>loading</div>;
+  // if (!_hasHydrated) return <div>loading</div>;
 
   return (
     <Box

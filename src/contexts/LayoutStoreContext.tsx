@@ -1,12 +1,6 @@
 'use client';
 import createLayoutStore from '@/stores/layout.store';
-import React, {
-  createContext,
-  FC,
-  PropsWithChildren,
-  ReactNode,
-  useRef,
-} from 'react';
+import { createContext, ReactNode, useRef } from 'react';
 
 export type LayoutStoreApi = ReturnType<typeof createLayoutStore>;
 

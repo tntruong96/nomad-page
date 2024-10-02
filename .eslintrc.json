@@ -23,9 +23,10 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:@tanstack/query/recommended"
   ],
-  "plugins": ["prettier", "@typescript-eslint", "react", "react-hooks"],
+  "plugins": ["prettier", "@typescript-eslint", "react", "react-hooks", "@tanstack/query" ],
   "rules": {
     // JavaScript rules
     "prefer-const": "warn",
@@ -54,7 +55,8 @@
     "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "prettier/prettier": "warn"
+    "prettier/prettier": "warn",
+    "@tanstack/query/exhaustive-deps": "error"
   },
   "settings": {
     "react": {

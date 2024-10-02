@@ -23,17 +23,11 @@ const createLayoutStore = (initialState: IInitialState = defaultState) => {
               mode: !state.mode,
             };
           }),
-        setHasHydrated: (props) =>
-          set((state) => ({
-            _hasHydrated: props,
-          })),
+        setHasHydrated: () => set(() => ({})),
       }),
       {
         name: 'layout',
         storage: createJSONStorage(() => sessionStorage),
-        onRehydrateStorage(state) {
-          return () => state.setHasHydrated(true);
-        },
       },
     ),
   );

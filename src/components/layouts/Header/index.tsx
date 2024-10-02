@@ -10,9 +10,9 @@ function Header() {
       className="flex min-h-[50px] items-center justify-between px-4 sm:hidden"
     >
       <Box>Logo</Box>
-      {/* <Box>
+      <Box>
         <SwitchModeComponent />
-      </Box> */}
+      </Box>
     </Box>
   );
 }

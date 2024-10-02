@@ -3,6 +3,15 @@
 @tailwind utilities;
 
 /* :root {
+  color-scheme: light;
+
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+} */
+
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 } */

@@ -1,7 +1,6 @@
 'use client';
 
 import { cormorant_upright } from '@/app/fonts/fonts';
-import { useLayoutStore } from '@/hooks/useLayout';
 
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 import { createTheme, Theme } from '@mui/material';
@@ -10,23 +9,27 @@ import { createContext, PropsWithChildren } from 'react';
 export interface IProps extends PropsWithChildren {}
 
 interface IValueContext {
-  mode?: boolean;
-  switchMode?: () => void;
-  theme?: Theme;
+  theme: Theme;
 }
 
-export const ThemeContext = createContext<IValueContext>({});
+const initiateTheme = createTheme({
+  typography: {
+    fontFamily: `var(${cormorant_upright.variable})`,
+  },
+  colorSchemes: {
+    dark: true,
+  },
+  cssVariables: {
+    colorSchemeSelector: 'class',
+  },
+});
+
+export const ThemeContext = createContext<IValueContext>({
+  theme: initiateTheme,
+});
 
 export default function ThemeContextProvider(props: IProps) {
-  const { mode, switchMode } = useLayoutStore((state) => state);
-  const theme = createTheme({
-    typography: {
-      fontFamily: `var(${cormorant_upright.variable})`,
-    },
-    palette: {
-      mode: mode ? 'dark' : 'light',
-    },
-  });
+  const theme = initiateTheme;
 
   return (
     <ThemeContext.Provider value={{ theme }}>
