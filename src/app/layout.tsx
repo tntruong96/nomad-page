@@ -1,13 +1,13 @@
 import Footer from '@/components/layouts/Footer';
 import Header from '@/components/layouts/Header';
 import SideBar from '@/components/layouts/Sidebar';
+import ReactQueryProvider from '@/components/ReactQueryProvider/ReactQueryProvider';
 import ContextProvider from '@/contexts/ContextProvider';
 import LayoutStoreProvider from '@/contexts/LayoutStoreContext';
 import LoadingContextProvider from '@/contexts/LoadingContext';
 import { Box, CssBaseline, StyledEngineProvider } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import { cormorant_upright } from './fonts/fonts';
 import './globals.css';
@@ -20,9 +20,6 @@ export const metadata: Metadata = {
   description: "This is Nomad's page",
 };
 
-// Create a client
-const queryClient = new QueryClient();
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -30,11 +27,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* <head>
-        <script dangerouslySetInnerHTML={{ __html: getTheme }} />
-      </head> */}
       <body className={`${cormorant_upright.variable} antialiased`}>
-        <QueryClientProvider client={queryClient}>
+        <ReactQueryProvider>
           <LayoutStoreProvider>
             <AppRouterCacheProvider>
               <ContextProvider>
@@ -47,15 +41,15 @@ export default function RootLayout({
                       <SideBar open={true} />
                       <Box className="flex w-full flex-auto flex-col items-center justify-end">
                         {children}
-                        <Footer />
                       </Box>
                     </Box>
+                    <Footer />
                   </StyledEngineProvider>
                 </LoadingContextProvider>
               </ContextProvider>
             </AppRouterCacheProvider>
           </LayoutStoreProvider>
-        </QueryClientProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

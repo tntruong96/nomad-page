@@ -94,6 +94,7 @@ const SideBar: FC<ISideBar> = ({ open }) => {
       component={'nav'}
       sx={{
         width: { xs: '20%', sm: '50px', md: '200px' },
+        minWidth: { xs: '20%', sm: '50px', md: '200px' },
         position: { xs: 'absolute', sm: 'relative' },
         bottom: { xs: 0 },
       }}
