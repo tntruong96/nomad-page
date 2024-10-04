@@ -4,13 +4,14 @@ import SideBar from '@/components/layouts/Sidebar';
 import ReactQueryProvider from '@/components/ReactQueryProvider/ReactQueryProvider';
 import ContextProvider from '@/contexts/ContextProvider';
 import LayoutStoreProvider from '@/contexts/LayoutStoreContext';
-import LoadingContextProvider from '@/contexts/LoadingContext';
 import { Box, CssBaseline, StyledEngineProvider } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { cormorant_upright } from './fonts/fonts';
 import './globals.css';
+import RootLoading from './loading';
 
 export const metadata: Metadata = {
   title: {
@@ -33,19 +34,19 @@ export default function RootLayout({
             <AppRouterCacheProvider>
               <ContextProvider>
                 <InitColorSchemeScript attribute="class" />
-                <LoadingContextProvider>
-                  <StyledEngineProvider injectFirst>
-                    <CssBaseline />
-                    <Header />
-                    <Box className="flex w-full">
-                      <SideBar open={true} />
+                <StyledEngineProvider injectFirst>
+                  <CssBaseline />
+                  <Header />
+                  <Box className="flex w-full">
+                    <SideBar open={true} />
+                    <Suspense fallback={<RootLoading />}>
                       <Box className="flex w-full flex-auto flex-col items-center justify-end">
                         {children}
                       </Box>
-                    </Box>
-                    <Footer />
-                  </StyledEngineProvider>
-                </LoadingContextProvider>
+                    </Suspense>
+                  </Box>
+                  <Footer />
+                </StyledEngineProvider>
               </ContextProvider>
             </AppRouterCacheProvider>
           </LayoutStoreProvider>

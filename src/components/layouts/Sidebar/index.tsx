@@ -87,8 +87,6 @@ const SideBar: FC<ISideBar> = ({ open }) => {
     </List>
   );
 
-  // if (!_hasHydrated) return <div>loading</div>;
-
   return (
     <Box
       component={'nav'}

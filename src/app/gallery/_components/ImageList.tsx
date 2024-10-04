@@ -1,58 +1,41 @@
 'use client';
 
-import { useImagesGallery } from '@/hooks/query/useGallery';
-import { Box, styled } from '@mui/material';
+import { useInfiniteImagesGallery } from '@/hooks/query/useGallery';
+import { Box, Grid2 as Grid } from '@mui/material';
 import { useEffect } from 'react';
 import { useIntersectionObserver } from 'usehooks-ts';
 import ImageItemComponent from './ImageItem';
 
 const ImageList = () => {
-  const { data } = useImagesGallery();
+  const { data, fetchNextPage } = useInfiniteImagesGallery();
   const { isIntersecting, ref } = useIntersectionObserver({
     threshold: 0.9,
   });
 
   useEffect(() => {
     if (isIntersecting) {
-      console.log(isIntersecting);
+      if (isIntersecting) fetchNextPage();
     }
-  }, [isIntersecting]);
-  //   console.log(data);
+  }, [isIntersecting, fetchNextPage]);
 
-  const renderListItem = data?.length
-    ? data.map((item) => <ImageItemComponent key={item.id} image={item} />)
+  const renderListItem = data?.pages?.length
+    ? data.pages.map((item, i) => (
+        <Grid key={i} container spacing={3} size={1}>
+          {item.map((i) => (
+            <ImageItemComponent key={i.id} image={i} />
+          ))}
+        </Grid>
+      ))
     : null;
-
-  // if (isLoading) return <Box>Loading</Box>;
 
   return (
     <>
-      <GridLayout>
-        <GridColumnItem sx={{ gridColumn: '1/2' }}>
-          {renderListItem}
-        </GridColumnItem>
-        {/* <GridColumnItem sx={{ gridColumn: '2/3' }}>
+      <Grid container columns={{ xs: 1, sm: 2, md: 3 }} spacing={3} px={3}>
         {renderListItem}
-        </GridColumnItem>
-        <GridColumnItem sx={{ gridColumn: '3/4' }}>
-        {renderListItem}
-        </GridColumnItem> */}
-      </GridLayout>
-      <Box ref={ref} height={400}></Box>
+      </Grid>
+      <Box ref={ref} height={200}></Box>
     </>
   );
 };
 
 export default ImageList;
-
-const GridLayout = styled(Box)({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '24px',
-});
-
-const GridColumnItem = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '24px',
-});

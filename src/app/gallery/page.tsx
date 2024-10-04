@@ -1,13 +1,7 @@
-import { Box } from '@mui/material';
-import React from 'react';
 import ImageList from './_components/ImageList';
 
 const GalleryPage = () => {
-  return (
-    <Box>
-      <ImageList />
-    </Box>
-  );
+  return <ImageList />;
 };
 
 export default GalleryPage;
