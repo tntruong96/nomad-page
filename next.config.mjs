@@ -5,6 +5,7 @@ import withPlaiceholder from "@plaiceholder/next";
 const nextConfig = { images: {
     remotePatterns: [{ hostname: 'images.unsplash.com' }],
   },
+  
 };
 
 export default withPlaiceholder(nextConfig);

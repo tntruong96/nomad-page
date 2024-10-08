@@ -113,20 +113,6 @@ const SideBar: FC<ISideBar> = ({ open }) => {
       >
         {renderListItem()}
       </Drawer>
-      <Drawer
-        variant="permanent"
-        anchor="bottom"
-        open={open}
-        sx={{
-          display: { xs: 'block', sm: 'none' },
-          '& .MuiDrawer-paper': {
-            boxSizing: 'border-box',
-            width: '100%',
-          },
-        }}
-      >
-        {renderListItem()}
-      </Drawer>
     </Box>
   );
 };

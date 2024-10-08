@@ -106,8 +106,5 @@ const CustomSwitchComponent = styled(SwitchComponent, {
     transition: theme.transitions.create(['background-color'], {
       duration: 500,
     }),
-    ...theme.applyStyles('dark', {
-      // backgroundColor: '#33333',
-    }),
   },
 }));

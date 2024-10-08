@@ -4,12 +4,18 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface IInitialState {
   mode: boolean;
+  lastPath: string;
+  lastBtmTab?: number;
+  changeTabNavBottom: (value: number) => void;
   _hasHydrated: boolean;
 }
 
 const defaultState: IInitialState = {
   mode: false,
+  lastPath: '',
+  lastBtmTab: undefined,
   _hasHydrated: false,
+  changeTabNavBottom: (value: number) => {},
 };
 
 const createLayoutStore = (initialState: IInitialState = defaultState) => {
@@ -23,11 +29,21 @@ const createLayoutStore = (initialState: IInitialState = defaultState) => {
               mode: !state.mode,
             };
           }),
-        setHasHydrated: () => set(() => ({})),
+        setHasHydrated: (value: boolean) => {
+          set((state) => ({
+            ...state,
+            _hasHydrated: value,
+          }));
+        },
+        changeTabNavBottom: (value: number) =>
+          set((state) => ({ ...state, lastBtmTab: value })),
       }),
       {
         name: 'layout',
-        storage: createJSONStorage(() => sessionStorage),
+        storage: createJSONStorage(() => localStorage),
+        onRehydrateStorage: (state) => {
+          return () => state.setHasHydrated(true);
+        },
       },
     ),
   );

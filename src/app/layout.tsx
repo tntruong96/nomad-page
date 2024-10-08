@@ -11,7 +11,8 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { cormorant_upright } from './fonts/fonts';
 import './globals.css';
-import RootLoading from './loading';
+
+import BottomNavigationComponent from '@/components/layouts/BottomNavigation';
 
 export const metadata: Metadata = {
   title: {
@@ -39,13 +40,12 @@ export default function RootLayout({
                   <Header />
                   <Box className="flex w-full">
                     <SideBar open={true} />
-                    <Suspense fallback={<RootLoading />}>
-                      <Box className="flex w-full flex-auto flex-col items-center justify-end">
-                        {children}
-                      </Box>
-                    </Suspense>
+                    <Box className="flex w-full flex-auto flex-col items-center justify-end">
+                      {children}
+                    </Box>
                   </Box>
                   <Footer />
+                  <BottomNavigationComponent />
                 </StyledEngineProvider>
               </ContextProvider>
             </AppRouterCacheProvider>

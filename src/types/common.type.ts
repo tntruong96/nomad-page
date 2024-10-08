@@ -1,8 +1,8 @@
 import { TImage } from './gallery.type';
 
 type TPaginationParams = {
-  page: number;
-  limit: number;
+  page?: number;
+  limit?: number;
 };
 
 type TResponseUnsplashCustom = {

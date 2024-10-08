@@ -3,10 +3,12 @@
 import { gallery } from '@/assests/query-keys-factory';
 import { getImages } from '@/services/gallery.service';
 import { TImage } from '@/types/gallery.type';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 const useInfiniteImagesGallery = () => {
-  const query = useInfiniteQuery({
+  const [countCol, setCountCol] = useState<number>(3);
+  const query = useSuspenseInfiniteQuery({
     queryKey: [gallery.lists()],
     queryFn: ({ pageParam: page }) => getImages({ page, limit: 12 }),
     initialPageParam: 1,
@@ -19,7 +21,7 @@ const useInfiniteImagesGallery = () => {
         prev.push(...cur);
         return prev;
       }, []);
-      let end = reducedData.length / 3;
+      let end = reducedData.length / countCol;
       let start = 0;
       let c = 1;
       const newData: TImage[][] = [];
@@ -27,12 +29,12 @@ const useInfiniteImagesGallery = () => {
         newData.push(reducedData.slice(start, end));
         c += 1;
         start = end;
-        end = (reducedData.length / 3) * c;
+        end = (reducedData.length / countCol) * c;
       }
       return { ...data, pages: newData };
     },
   });
-  return { ...query };
+  return { ...query, setCountCol };
 };
 
 export { useInfiniteImagesGallery };
