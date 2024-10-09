@@ -1,11 +1,12 @@
 'use client';
 
+import CircleProgressComponent from '@/components/CircleProgress';
 import { useInfiniteImagesGallery } from '@/hooks/query/useGallery';
 import { Box, Grid2 as Grid } from '@mui/material';
+import Link from 'next/link';
 import { FC, PropsWithChildren, useLayoutEffect } from 'react';
 import { useIntersectionObserver, useWindowSize } from 'usehooks-ts';
 import ImageItemComponent from './ImageItem';
-import CircleProgressComponent from '@/components/CircleProgress';
 
 const ImageList: FC<PropsWithChildren> = ({ children }) => {
   const { data, fetchNextPage, setCountCol, isFetchingNextPage, isSuccess } =
@@ -41,9 +42,13 @@ const ImageList: FC<PropsWithChildren> = ({ children }) => {
           size={1}
         >
           {item.map((i) => (
-            <Box key={i.id} sx={{ maxHeight: 'fit-content' }}>
+            <Link
+              href={`/gallery-detail/${i.id}`}
+              key={i.id}
+              style={{ maxHeight: 'fit-content' }}
+            >
               <ImageItemComponent image={i} />
-            </Box>
+            </Link>
           ))}
         </Grid>
       ))

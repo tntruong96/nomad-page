@@ -6,7 +6,7 @@ import { BottomNavigationProps, styled } from '@mui/material';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { useRouter } from 'next/navigation';
-import React, { FC, useEffect, useLayoutEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 
 interface IBottomItem {
   icon: React.ReactNode;

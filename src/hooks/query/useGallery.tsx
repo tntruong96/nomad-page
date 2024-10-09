@@ -1,9 +1,9 @@
 'use client';
 
 import { gallery } from '@/assests/query-keys-factory';
-import { getImages } from '@/services/gallery.service';
+import { getImage, getImages } from '@/services/gallery.service';
 import { TImage } from '@/types/gallery.type';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
 const useInfiniteImagesGallery = () => {
@@ -37,4 +37,13 @@ const useInfiniteImagesGallery = () => {
   return { ...query, setCountCol };
 };
 
-export { useInfiniteImagesGallery };
+const useGetImageDetail = (id: string) => {
+  const query = useQuery({
+    queryKey: [gallery.detail(id)],
+    queryFn: () => getImage(id),
+    enabled: !!id,
+  });
+  return { ...query };
+};
+
+export { useInfiniteImagesGallery, useGetImageDetail };

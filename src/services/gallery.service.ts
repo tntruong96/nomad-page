@@ -1,5 +1,4 @@
 // 'use server';
-import { getPlaiceholder } from 'plaiceholder';
 import { TPaginationParams } from '@/types/common.type';
 import { TImage } from '@/types/gallery.type';
 import axios from 'axios';
@@ -13,4 +12,11 @@ const getImages = async (params: TPaginationParams): Promise<TImage[]> => {
   return data;
 };
 
-export { getImages };
+const getImage = async (id: string): Promise<TImage> => {
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_UNSPLASH_LINK}/photos/${id}?&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`,
+  );
+  return data;
+};
+
+export { getImage, getImages };

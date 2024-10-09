@@ -7,5 +7,5 @@ export const gallery = {
   lists: () => [...gallery.all, 'list'] as const,
   list: (filters: string) => [...gallery.lists(), { filters }] as const,
   details: () => [...gallery.all, 'detail'] as const,
-  detail: (id: number) => [...gallery.details(), id] as const,
+  detail: (id: string) => [...gallery.details(), id] as const,
 };

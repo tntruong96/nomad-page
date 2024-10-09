@@ -11,18 +11,6 @@ const GalleryPage = async () => {
     initialPageParam: 1,
   });
 
-  // const data = await getGalleryImage();
-
-  // const renderListItem = data?.length
-  //   ? data.map((item, i) => (
-  //       <Grid2 container spacing={3} size={1}>
-  //         {item.map((i) => (
-  //           <ImageItemComponent key={i.id} image={i} />
-  //         ))}
-  //       </Grid2>
-  //     ))
-  //   : null;
-
   return <ImageList />;
 };
 

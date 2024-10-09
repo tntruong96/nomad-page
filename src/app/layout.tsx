@@ -13,6 +13,7 @@ import { cormorant_upright } from './fonts/fonts';
 import './globals.css';
 
 import BottomNavigationComponent from '@/components/layouts/BottomNavigation';
+import { ModalContextProvider } from '@/hooks/useModalContext';
 
 export const metadata: Metadata = {
   title: {
@@ -40,12 +41,14 @@ export default function RootLayout({
                   <Header />
                   <Box className="flex w-full">
                     <SideBar open={true} />
-                    <Box className="flex w-full flex-auto flex-col items-center justify-end">
-                      {children}
-                    </Box>
+                    <ModalContextProvider>
+                      <Box className="flex w-full flex-auto flex-col items-center justify-end">
+                        {children}
+                      </Box>
+                    </ModalContextProvider>
                   </Box>
                   <Footer />
-                  <BottomNavigationComponent />
+                  {/* <BottomNavigationComponent /> */}
                 </StyledEngineProvider>
               </ContextProvider>
             </AppRouterCacheProvider>

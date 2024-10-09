@@ -15,7 +15,7 @@ const defaultState: IInitialState = {
   lastPath: '',
   lastBtmTab: undefined,
   _hasHydrated: false,
-  changeTabNavBottom: (value: number) => {},
+  changeTabNavBottom: (_value: number) => {},
 };
 
 const createLayoutStore = (initialState: IInitialState = defaultState) => {
