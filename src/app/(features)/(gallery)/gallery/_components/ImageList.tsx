@@ -8,8 +8,8 @@ import { FC, PropsWithChildren, useLayoutEffect } from 'react';
 import { useIntersectionObserver, useWindowSize } from 'usehooks-ts';
 import ImageItemComponent from './ImageItem';
 
-const ImageList: FC<PropsWithChildren> = ({ children }) => {
-  const { data, fetchNextPage, setCountCol, isFetchingNextPage, isSuccess } =
+const ImageList: FC<PropsWithChildren> = () => {
+  const { data, fetchNextPage, setCountCol, isFetchingNextPage } =
     useInfiniteImagesGallery();
   const { width = 0 } = useWindowSize();
   const { isIntersecting, ref } = useIntersectionObserver({
@@ -22,7 +22,7 @@ const ImageList: FC<PropsWithChildren> = ({ children }) => {
     if (isIntersecting) {
       if (isIntersecting) fetchNextPage();
     }
-  }, [isIntersecting]);
+  }, [isIntersecting, fetchNextPage]);
 
   useLayoutEffect(() => {
     if (width >= 600 && width <= 900) {
@@ -30,7 +30,7 @@ const ImageList: FC<PropsWithChildren> = ({ children }) => {
     } else if (width > 900) {
       setCountCol(3);
     }
-  }, [width]);
+  }, [width, setCountCol]);
 
   const renderListItem = data?.pages?.length
     ? data.pages.map((item, i) => (

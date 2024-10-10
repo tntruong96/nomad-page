@@ -1,14 +1,26 @@
-'use client';
-import { useGetImageDetail } from '@/hooks/query/useGallery';
-import { useParams } from 'next/navigation';
-import React from 'react';
+// 'use client';
+// import { useGetImageDetail } from '@/hooks/query/useGallery';
+import { Box } from '@mui/material';
 
-const ClientDetailGallery = () => {
-  const { id } = useParams();
-  const { data } = useGetImageDetail(id);
-  console.log(data);
+const ClientDetailGallery = async () => {
+  // const { id } = useParams();
 
-  return <div>ClientDetail</div>;
+  // const data = await getImage(params.id);
+  // const { base64, img } = await getBase64Blur(data.urls.regular);
+  // console.log(data);
+  // const { data } = useGetImageDetail(id);
+
+  return (
+    <Box component={'div'} className="h-[500px] w-full">
+      {/* <Image
+        {...img}
+        alt={data.slug}
+        blurDataURL={base64}
+        placeholder="blur"
+        objectFit="contain"
+      /> */}
+    </Box>
+  );
 };
 
 export default ClientDetailGallery;

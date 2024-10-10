@@ -1,18 +1,22 @@
-// 'use client';
+'use client';
 
-import getQueryClient from '@/assests/getQueryClient';
-import { gallery } from '@/assests/query-keys-factory';
-import { getImage } from '@/services/gallery.service';
+import { Box } from '@mui/material';
 import GalleryDialog from '../../_components/GalleryDialog';
 
-const GalleryDetailModal = ({ params }: { params: { id: string } }) => {
-  const queryClient = getQueryClient();
-  queryClient.prefetchQuery({
-    queryKey: [gallery.detail(params.id)],
-    queryFn: () => getImage(params.id),
-  });
-
-  return <GalleryDialog id={params.id} />;
+const GalleryDetailModal = () => {
+  return (
+    <GalleryDialog>
+      <Box component={'div'} className="h-[500px] w-full">
+        {/* <Image
+          {...img}
+          alt={data.slug}
+          blurDataURL={base64}
+          placeholder="blur"
+          objectFit="contain"
+        /> */}
+      </Box>
+    </GalleryDialog>
+  );
 };
 
 export default GalleryDetailModal;

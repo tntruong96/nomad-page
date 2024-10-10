@@ -4,8 +4,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  useMediaQuery,
-  useTheme,
 } from '@mui/material';
 import {
   createContext,
@@ -19,20 +17,21 @@ import {
 interface IStore {
   content: ReactNode;
   title: string;
-  action: ReactNode;
+  actions: ReactNode;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface IPropsContext extends PropsWithChildren {}
 
 function reducer(
   state: IStore,
-  action: { type: string; value: unknown },
+  action: { type: string; payload: ReactNode },
 ): IStore {
   switch (action.type) {
     case 'set-title':
       break;
     case 'set-content':
-      break;
+      return { ...state, actions: action.payload };
     case 'set-action':
       break;
     default:
@@ -44,8 +43,8 @@ function reducer(
 
 const initialStore: IStore = {
   content: <>Content</>,
-  title: 'Title',
-  action: (
+  title: '',
+  actions: (
     <>
       {/* <Button autoFocus onClick={handleClose}>
             Disagree
@@ -60,33 +59,42 @@ const initialStore: IStore = {
 const ModalContext = createContext({
   open: false,
   onOpen: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  dispatchAction: (props: { type: string; payload: ReactNode }) => {},
 });
 
 const ModalContextProvider: FC<IPropsContext> = ({ children }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [state, _dispatch] = useReducer(reducer, initialStore);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const [state, dispatch] = useReducer(reducer, initialStore);
+
   const handleClose = () => {
     setOpen(false);
   };
   const onOpen = () => {
     setOpen(true);
   };
+  const dispatchAction: (props: {
+    type: string;
+    payload: ReactNode;
+  }) => void = (props) => {
+    const { type, payload } = props;
+    dispatch({ type, payload });
+  };
+
   return (
     <>
-      <ModalContext.Provider value={{ open, onOpen }}>
+      <ModalContext.Provider value={{ open, onOpen, dispatchAction }}>
         {children}
       </ModalContext.Provider>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
-        fullScreen={fullScreen}
+        // fullScreen={fullScreen}
       >
         <DialogTitle id="responsive-dialog-title">{state.title}</DialogTitle>
         <DialogContent>{state.content}</DialogContent>
-        <DialogActions></DialogActions>
+        <DialogActions>{state.actions}</DialogActions>
       </Dialog>
     </>
   );

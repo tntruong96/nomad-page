@@ -127,6 +127,12 @@ type TImage = {
       paypal_email: null | string;
     };
   };
+  tags: TTag[];
+};
+
+type TTag = {
+  type: string;
+  title: string;
 };
 
 export { type TImage };

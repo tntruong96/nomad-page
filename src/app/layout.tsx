@@ -8,11 +8,9 @@ import { Box, CssBaseline, StyledEngineProvider } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import { cormorant_upright } from './fonts/fonts';
 import './globals.css';
 
-import BottomNavigationComponent from '@/components/layouts/BottomNavigation';
 import { ModalContextProvider } from '@/hooks/useModalContext';
 
 export const metadata: Metadata = {
