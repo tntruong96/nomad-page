@@ -1,20 +1,14 @@
-'use client';
-
 import { Box } from '@mui/material';
 import GalleryDialog from '../../_components/GalleryDialog';
+import { getImage } from '@/services/gallery.service';
+import DetailGallery from '@/components/GalleryDetailPage/DetailGallery';
 
-const GalleryDetailModal = () => {
+const GalleryDetailModal = async ({ params }: { params: { id: string } }) => {
+  const imageData = await getImage(params.id);
+
   return (
     <GalleryDialog>
-      <Box component={'div'} className="h-[500px] w-full">
-        {/* <Image
-          {...img}
-          alt={data.slug}
-          blurDataURL={base64}
-          placeholder="blur"
-          objectFit="contain"
-        /> */}
-      </Box>
+      <DetailGallery imageData={imageData} />
     </GalleryDialog>
   );
 };

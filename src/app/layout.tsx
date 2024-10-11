@@ -12,6 +12,7 @@ import { cormorant_upright } from './fonts/fonts';
 import './globals.css';
 
 import { ModalContextProvider } from '@/hooks/useModalContext';
+import ZoomContextProvider from '@/hooks/useZoomContext';
 
 export const metadata: Metadata = {
   title: {
@@ -37,14 +38,16 @@ export default function RootLayout({
                 <StyledEngineProvider injectFirst>
                   <CssBaseline />
                   <Header />
-                  <Box className="flex w-full">
-                    <SideBar open={true} />
-                    <ModalContextProvider>
-                      <Box className="flex w-full flex-auto flex-col items-center justify-end">
-                        {children}
-                      </Box>
-                    </ModalContextProvider>
-                  </Box>
+                  <ZoomContextProvider>
+                    <Box className="flex w-full">
+                      <SideBar open={true} />
+                      <ModalContextProvider>
+                        <Box className="flex w-full flex-auto flex-col items-center justify-end">
+                          {children}
+                        </Box>
+                      </ModalContextProvider>
+                    </Box>
+                  </ZoomContextProvider>
                   <Footer />
                   {/* <BottomNavigationComponent /> */}
                 </StyledEngineProvider>

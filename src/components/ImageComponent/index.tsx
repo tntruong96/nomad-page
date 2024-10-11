@@ -1,7 +1,7 @@
 import useBlurImage from '@/hooks/useBlurImage';
 import { TImage } from '@/types/gallery.type';
 import { Box, styled } from '@mui/material';
-import Image from 'next/image';
+import Image, { ImageProps } from 'next/image';
 import React, { FC, useState } from 'react';
 
 interface IProps {
@@ -11,13 +11,13 @@ const CustomImage: FC<IProps> = ({ image }) => {
   const { blurUrl, showBlur, setShowBlur } = useBlurImage(image.blur_hash);
   const [completelyLoad, setCompletelyLoad] = useState(false);
   return (
-    <Box className={'relative'}>
+    <Box className={'relative h-full w-full'}>
       <ImageItem
         width={image.width}
         height={image.height}
         src={image.urls.regular}
         alt={image.slug}
-        priority
+        // priority
         onLoad={() => {
           setCompletelyLoad(true);
           setShowBlur(false);

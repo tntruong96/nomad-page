@@ -128,6 +128,12 @@ type TImage = {
     };
   };
   tags: TTag[];
+  location: {
+    name: null | string;
+    city: null | string;
+    country: null | string;
+    position: { latitude: number; longitude: number };
+  };
 };
 
 type TTag = {

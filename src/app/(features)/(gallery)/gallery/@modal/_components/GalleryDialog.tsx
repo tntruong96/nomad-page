@@ -1,6 +1,12 @@
 'use client';
 
-import { Dialog, DialogContent, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Dialog as DialogMUI,
+  DialogContent,
+  useMediaQuery,
+  useTheme,
+  styled,
+} from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { FC, PropsWithChildren, useState } from 'react';
 
@@ -10,20 +16,11 @@ interface IProps extends PropsWithChildren {}
 const GalleryDialog: FC<IProps> = ({ children }) => {
   const [open, setOpen] = useState(true);
   const navigate = useRouter();
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <Dialog
-      sx={{
-        '& .MuiDialog-paper': {
-          // maxHeight: 'none',
-          // height: 'inherit',
-          // maxWidth: 'none',
-          // width: '800px',
-        },
-      }}
-      fullScreen={fullScreen}
       fullWidth
+      maxWidth="xl"
       open={open}
       onClose={() => {
         navigate.back();
@@ -36,3 +33,5 @@ const GalleryDialog: FC<IProps> = ({ children }) => {
 };
 
 export default GalleryDialog;
+
+const Dialog = styled(DialogMUI)({});

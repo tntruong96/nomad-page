@@ -4,19 +4,23 @@ import CircleProgressComponent from '@/components/CircleProgress';
 import { useInfiniteImagesGallery } from '@/hooks/query/useGallery';
 import { Box, Grid2 as Grid } from '@mui/material';
 import Link from 'next/link';
-import { FC, PropsWithChildren, useLayoutEffect } from 'react';
+import { FC, PropsWithChildren, useLayoutEffect, useState } from 'react';
 import { useIntersectionObserver, useWindowSize } from 'usehooks-ts';
 import ImageItemComponent from './ImageItem';
+import { TImage } from '@/types/gallery.type';
 
 const ImageList: FC<PropsWithChildren> = () => {
   const { data, fetchNextPage, setCountCol, isFetchingNextPage } =
     useInfiniteImagesGallery();
+  const [dataImages, setDataImages] = useState<TImage[][]>([]);
   const { width = 0 } = useWindowSize();
   const { isIntersecting, ref } = useIntersectionObserver({
     threshold: 0.9,
   });
 
-  // console.log(data.pages[0][0]);
+  useLayoutEffect(() => {
+    setDataImages(data.pages);
+  }, [data]);
 
   useLayoutEffect(() => {
     if (isIntersecting) {
@@ -32,8 +36,8 @@ const ImageList: FC<PropsWithChildren> = () => {
     }
   }, [width, setCountCol]);
 
-  const renderListItem = data?.pages?.length
-    ? data.pages.map((item, i) => (
+  const renderListItem = dataImages.length
+    ? dataImages.map((item, i) => (
         <Grid
           key={i}
           display={'flex'}
@@ -44,6 +48,8 @@ const ImageList: FC<PropsWithChildren> = () => {
           {item.map((i) => (
             <Link
               href={`/gallery-detail/${i.id}`}
+              replace={false}
+              scroll={false}
               key={i.id}
               style={{ maxHeight: 'fit-content' }}
             >
