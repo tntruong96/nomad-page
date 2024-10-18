@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  Dialog as DialogMUI,
-  DialogContent,
-  useMediaQuery,
-  useTheme,
-  styled,
-} from '@mui/material';
+import { DialogContent, Dialog as DialogMUI, styled } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { FC, PropsWithChildren, useState } from 'react';
 

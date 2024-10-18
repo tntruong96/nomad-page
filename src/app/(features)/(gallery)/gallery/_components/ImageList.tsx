@@ -52,6 +52,7 @@ const ImageList: FC<PropsWithChildren> = () => {
               scroll={false}
               key={i.id}
               style={{ maxHeight: 'fit-content' }}
+              prefetch={false}
             >
               <ImageItemComponent image={i} />
             </Link>

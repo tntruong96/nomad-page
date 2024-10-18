@@ -1,8 +1,8 @@
 import useBlurImage from '@/hooks/useBlurImage';
 import { TImage } from '@/types/gallery.type';
 import { Box, styled } from '@mui/material';
-import Image, { ImageProps } from 'next/image';
-import React, { FC, useState } from 'react';
+import Image from 'next/image';
+import { FC, useState } from 'react';
 
 interface IProps {
   image: TImage;
@@ -17,6 +17,7 @@ const CustomImage: FC<IProps> = ({ image }) => {
         height={image.height}
         src={image.urls.regular}
         alt={image.slug}
+        // fill
         // priority
         onLoad={() => {
           setCompletelyLoad(true);

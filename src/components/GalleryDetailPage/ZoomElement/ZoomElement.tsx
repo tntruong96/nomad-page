@@ -13,15 +13,13 @@ const ZoomElement: FC<IProps> = ({ children, zoomContent }) => {
 
   useEffect(() => {
     setZoomContent(<CustomImage image={zoomContent} />);
-  }, [zoomContent]);
+  }, []);
 
   return (
-    <Box
-      component={'div'}
-      className="flex justify-center sm:h-[580px]"
-      onClick={() => onZoom()}
-    >
-      {children}
+    <Box component={'div'} className="m-auto flex w-full justify-center">
+      <Box component={'div'} onClick={() => onZoom()}>
+        {children}
+      </Box>
     </Box>
   );
 };

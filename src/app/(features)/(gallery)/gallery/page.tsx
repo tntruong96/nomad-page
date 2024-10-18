@@ -1,6 +1,10 @@
 import { gallery } from '@/assests/query-keys-factory';
 import { getImages } from '@/services/gallery.service';
-import { QueryClient } from '@tanstack/react-query';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import ImageList from './_components/ImageList';
 
 const GalleryPage = async () => {
@@ -11,7 +15,11 @@ const GalleryPage = async () => {
     initialPageParam: 1,
   });
 
-  return <ImageList />;
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ImageList />;
+    </HydrationBoundary>
+  );
 };
 
 export default GalleryPage;

@@ -2,14 +2,12 @@
 
 import {
   isServer,
-  matchQuery,
-  MutationCache,
   QueryClient,
   QueryClientProvider,
   QueryKey,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import React, { FC, PropsWithChildren, useState } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
 declare module '@tanstack/react-query' {
   interface Register {
@@ -67,7 +65,7 @@ const ReactQueryProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };

@@ -18,16 +18,15 @@ const DetailGallery: FC<IProps> = async ({ imageData }) => {
   const { base64, img } = await getBase64Blur(imageData.urls.regular);
 
   return (
-    <Box component={'div'} className="w-full">
+    <Box component={'div'} className="h-full w-full">
       <ZoomElement zoomContent={imageData}>
         <Image
           {...img}
           alt={imageData.slug}
           blurDataURL={base64}
-          // height={580}
           placeholder="blur"
-          className="cursor-zoom-in"
-          style={{ objectFit: 'contain' }}
+          className="sm:cursor-zoom-in"
+          style={{ objectFit: 'cover' }}
         />
       </ZoomElement>
       <Box

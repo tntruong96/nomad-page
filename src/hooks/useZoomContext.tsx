@@ -1,11 +1,10 @@
 'use client';
 import { Box, Paper, useMediaQuery, useTheme, Zoom } from '@mui/material';
-import React, {
+import {
   createContext,
   FC,
   PropsWithChildren,
   ReactNode,
-  useEffect,
   useState,
 } from 'react';
 
@@ -20,6 +19,7 @@ interface IZoomContext {
 
 export const ZoomContext = createContext<IZoomContext>({
   onZoom: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setZoomContent(content) {},
 });
 
@@ -38,8 +38,6 @@ const ZoomContextProvider: FC<IProps> = ({ children }) => {
   function setContent(zoomContent: ReactNode) {
     setZoomContent(zoomContent);
   }
-
-  useEffect(() => {}, []);
 
   return (
     <>
